@@ -37,41 +37,30 @@ function App() {
       name: "Contact",
       complete: false,
       editMode: true,
-      screen: (
-        <PersonalInfo
-          data={data}
-          onInputChange={handleInputChange}
-          onSave={handleSave}
-        />
-      ),
     },
     {
       id: uuidv4(),
       name: "Education",
       complete: false,
       editMode: false,
-      screen: "To-Do",
     },
     {
       id: uuidv4(),
       name: "Experience",
       complete: false,
       editMode: false,
-      screen: "To-Do",
     },
     {
       id: uuidv4(),
       name: "Skills",
       complete: false,
       editMode: false,
-      screen: "To-Do",
     },
     {
       id: uuidv4(),
       name: "Hobbies",
       complete: false,
       editMode: false,
-      screen: "To-Do",
     },
   ]);
 
@@ -174,17 +163,29 @@ function App() {
   }
 
   useEffect(() => {
-    setFakeCompany();
     const storedData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storedData) setData(storedData);
+    if (storedData) {
+      if (storedData.data) setData(storedData.data);
+      if (storedData.cvComponents) setCvComponents(storedData.cvComponents);
+    }
   }, []);
 
   useEffect(() => {
     if (saveData) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify({ data, cvComponents })
+      );
       setSaveData(false);
     }
-  }, [saveData]);
+  }, [saveData, data, cvComponents]);
+
+  //Function for clearing the local storage after clicking a button
+  function handleClearLocalStorage(e) {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.reload();
+  }
 
   function handleSave(e, clickedValue) {
     e.preventDefault();
@@ -266,7 +267,7 @@ function App() {
         )}
       </div>
       <div className="col-span-5 bg-gray-400">
-        <CV data={data} />
+        <CV data={data} onClearLocalStorage={handleClearLocalStorage} />
       </div>
     </div>
   );
