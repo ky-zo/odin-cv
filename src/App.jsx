@@ -200,6 +200,16 @@ function App() {
     });
   }
 
+  function handleDelete(e, section, index) {
+    e.preventDefault();
+    setData((prevData) => {
+      const updatedSection = prevData[section].filter(
+        (item, itemIndex) => itemIndex !== index
+      );
+      return { ...prevData, [section]: updatedSection };
+    });
+  }
+
   function setFakeCompany() {
     setData((prevData) => {
       return {
@@ -239,6 +249,7 @@ function App() {
             onInputChange={handleInputChange}
             onSave={handleSave}
             onAddNewSchool={handleAddNewSchoolToDataArray}
+            onDelete={handleDelete}
           />
         )}
         {currentScreen === "Experience" && (
@@ -247,6 +258,7 @@ function App() {
             onInputChange={handleInputChange}
             onSave={handleSave}
             onAddNewJob={handleAddNewJobToDataArray}
+            onDelete={handleDelete}
           />
         )}
         {currentScreen === "Skills" && (
@@ -255,6 +267,7 @@ function App() {
             onInputChange={handleInputChange}
             onSave={handleSave}
             onAddNewSkill={handleAddNewSkillToDataArray}
+            onDelete={handleDelete}
           />
         )}
         {currentScreen === "Hobbies" && (
@@ -263,6 +276,7 @@ function App() {
             onInputChange={handleInputChange}
             onSave={handleSave}
             onAddNewHobby={handleAddNewHobbyToDataArray}
+            onDelete={handleDelete}
           />
         )}
       </div>

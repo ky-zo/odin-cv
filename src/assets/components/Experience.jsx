@@ -112,7 +112,7 @@ function Job({ key, data, onInputChange, index }) {
 
         <div className="sm:col-span-2">
           <button
-            onClick={(e) => "TO-DO!!!!"}
+            onClick={(e) => onDelete(e, "Experience", index)}
             className="rounded-md bg-white px-6 py-2 text-sm font-semibold text-indigo-600 shadow-md hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Delete
